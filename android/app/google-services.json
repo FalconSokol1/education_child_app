@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904791746477",
+    "project_id": "childapp-daeea",
+    "storage_bucket": "childapp-daeea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904791746477:android:8a26e9f5f73908574a2324",
+        "android_client_info": {
+          "package_name": "com.example.education_child_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOXy2e0ZSVOdT_QzTDvcCMtfHfgUf_SLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

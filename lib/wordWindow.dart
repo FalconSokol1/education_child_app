@@ -104,7 +104,7 @@ class _HomePageState extends State<WordWindow> {
                                 child: Column(
                                   children: [
                                     Ink.image(
-                                      image: AssetImage('assets/leee.jpg'),
+                                      image: AssetImage('assets/gamePaint.jpeg'),
                                       fit: BoxFit.fill,
                                       width: 100,
                                       height: 100,
@@ -113,7 +113,7 @@ class _HomePageState extends State<WordWindow> {
                                       height: 10,
                                     ),
                                     Text(
-                                      'ахишка',
+                                      'Цвета',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
@@ -141,7 +141,7 @@ class _HomePageState extends State<WordWindow> {
                                 child: Column(
                                   children: [
                                     Ink.image(
-                                      image: AssetImage('assets/leeee.jpg'),
+                                      image: AssetImage('assets/gameFigures.jpeg'),
                                       fit: BoxFit.fill,
                                       width: 100,
                                       height: 100,
@@ -150,7 +150,7 @@ class _HomePageState extends State<WordWindow> {
                                       height: 5,
                                     ),
                                     Text(
-                                      'УЦЫ',
+                                      'Фигуры',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
@@ -196,5 +196,4 @@ class _HomePageState extends State<WordWindow> {
       ),
     );
   }
-
 }

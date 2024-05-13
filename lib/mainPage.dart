@@ -1,7 +1,12 @@
+import 'package:education_child_app/authService.dart';
+import 'package:education_child_app/authWindow.dart';
 import 'package:education_child_app/numberWindow.dart';
 import 'package:education_child_app/wordWindow.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'aboutApp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -12,10 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late bool _isVisible;
+  var imag;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
 
   @override
   void initState() {
     super.initState();
+
 
     // Установим начальное значение видимости текста как false
     _isVisible = false;
@@ -27,6 +36,8 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.center,
                 children: [
                   Container(
-                    height: 240,
+                    height: 220,
                     width: 390,
                     decoration: BoxDecoration(
                       color: const Color(0xFFC71A4F),
@@ -76,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                           opacity: _isVisible ? 1.0 : 0.0,
                           duration: Duration(seconds: 1),
                         child: Text(
-                          'САЛАМ УЦЫ, ДАВАЙ\n ЖИ ЕСТЬ ИГРАТЬ',
+                          'Привет!\nДавай скорее играть', textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -90,13 +101,14 @@ class _HomePageState extends State<HomePage> {
                     bottom: 260,
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage('assets/logoChildApp.jpeg'),
+                      backgroundImage: NetworkImage(_firebaseAuth.currentUser!.photoURL.toString())
                     ),
                   ),
 
                 ],
               ),
             ),
+
             Padding(
               padding: EdgeInsets.all(8),
               child: Column(
@@ -242,6 +254,40 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            FloatingActionButton.extended(
+              heroTag: null,
+              label: Text('О приложении'),
+              foregroundColor:  Colors.white,// <-- Text
+              backgroundColor: const Color(0xFFC71A4F),
+              icon: Icon( // <-- Icon
+                Icons.info_outlined,
+                size: 24.0,
+              ),
+              onPressed: () {Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutApp()),);},
+
+            ),
+            FloatingActionButton.extended(
+              heroTag: null,
+              label: Text('Выйти из аккаунта'),
+              foregroundColor:  Colors.white,// <-- Text
+              backgroundColor: const Color(0xFFC71A4F),
+              icon: Icon( // <-- Icon
+                Icons.exit_to_app,
+                size: 24.0,
+              ),
+              onPressed: () {
+                final FirebaseAuthService out= new FirebaseAuthService();
+                out.signOut();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AuthWindow()), (Route<dynamic> route) => false);},
+            ),
+          ])
           ],
         ),
       ),
