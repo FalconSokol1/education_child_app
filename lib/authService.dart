@@ -18,7 +18,7 @@ class FirebaseAuthService {
       if (e.code == 'email-already-in-use') {
         print('The email address is already in use.');
       } else {
-      print('An error occurred: ${e.code}');
+       print('An error occurred: ${e.code}');
       }
     }
     return null;
@@ -28,6 +28,7 @@ class FirebaseAuthService {
 
   Future<void> signOut() async {
     await GoogleSignIn().signOut();
+    await FirebaseAuth.instance.signOut();
   }
 
 }

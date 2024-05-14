@@ -48,74 +48,93 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 60,
-              child:
-              Text(
-            'Обучащющее приложение\n для детей',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-            ),
-            SizedBox(
-              height: 380,
-              width: 400,
-              child: Stack(
-                alignment: Alignment.center,
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    height: 220,
-                    width: 390,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFC71A4F),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 1),
-                          blurRadius: 5,
-                          spreadRadius: 3,
-                          color: const Color(0xFFC71A4F).withOpacity(.4),
+                  FloatingActionButton.extended(
+                    heroTag: null,
+                    label: Text('О приложении'),
+                    foregroundColor:  Colors.white,// <-- Text
+                    backgroundColor: const Color(0xFFC71A4F),
+                    icon: Icon( // <-- Icon
+                      Icons.info_outlined,
+                      size: 24.0,
+                    ),
+                    onPressed: () {Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AboutApp()),);},
+                  ),
+                  SizedBox(
+                    height: 160,
+                    width: 400,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 390,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFC71A4F),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 1),
+                                blurRadius: 5,
+                                spreadRadius: 3,
+                                color: const Color(0xFFC71A4F).withOpacity(.4),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: AnimatedOpacity(
+                              opacity: _isVisible ? 1.0 : 0.0,
+                              duration: Duration(seconds: 1),
+                              child: Text(
+                                'Привет, ${_firebaseAuth.currentUser?.displayName}!\nДавай скорее играть', textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          )
                         ),
+                        Positioned(
+                          top: 110,
+                          child:
+                          CircleAvatar(
+                              radius: 20,
+                              backgroundImage: NetworkImage(_firebaseAuth.currentUser!.photoURL.toString())
+                          ),),
                       ],
                     ),
-                    child: Center(
-                      child: AnimatedOpacity(
-                          opacity: _isVisible ? 1.0 : 0.0,
-                          duration: Duration(seconds: 1),
-                        child: Text(
-                          'Привет!\nДавай скорее играть', textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 260,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(_firebaseAuth.currentUser!.photoURL.toString())
-                    ),
                   ),
 
-                ],
-              ),
-            ),
-
+                  FloatingActionButton.extended(
+                    heroTag: null,
+                    label: Text('Выйти из аккаунта'),
+                    foregroundColor:  Colors.white,// <-- Text
+                    backgroundColor: const Color(0xFFC71A4F),
+                    icon: Icon( // <-- Icon
+                      Icons.exit_to_app,
+                      size: 24.0,
+                    ),
+                    onPressed: () {
+                      final FirebaseAuthService out= new FirebaseAuthService();
+                      out.signOut();
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AuthWindow()), (Route<dynamic> route) => false);},
+                  ),
+                ]),
             Padding(
               padding: EdgeInsets.all(8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 300,
+                    height: 180,
                     width: 500,
                     child: Column(
                       children: [
@@ -180,14 +199,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
                             Material(
                               color: const Color(0xFFC71A4F),
                               borderRadius: BorderRadius.circular(20),
@@ -254,40 +265,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            FloatingActionButton.extended(
-              heroTag: null,
-              label: Text('О приложении'),
-              foregroundColor:  Colors.white,// <-- Text
-              backgroundColor: const Color(0xFFC71A4F),
-              icon: Icon( // <-- Icon
-                Icons.info_outlined,
-                size: 24.0,
-              ),
-              onPressed: () {Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AboutApp()),);},
-
-            ),
-            FloatingActionButton.extended(
-              heroTag: null,
-              label: Text('Выйти из аккаунта'),
-              foregroundColor:  Colors.white,// <-- Text
-              backgroundColor: const Color(0xFFC71A4F),
-              icon: Icon( // <-- Icon
-                Icons.exit_to_app,
-                size: 24.0,
-              ),
-              onPressed: () {
-                final FirebaseAuthService out= new FirebaseAuthService();
-                out.signOut();
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AuthWindow()), (Route<dynamic> route) => false);},
-            ),
-          ])
           ],
         ),
       ),

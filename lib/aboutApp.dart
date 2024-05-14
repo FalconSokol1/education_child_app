@@ -53,6 +53,32 @@ class _AboutAppState extends State<AboutApp> {
     ),]
     )
     ,),
+      Text("Используемые средства:", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20),),
+      SizedBox(height: 20,),
+      Container(
+        child:
+        Column(children: [
+          Row(children: [Image.asset(
+              'assets/flutter.png',
+              fit:BoxFit.cover,
+              height: 40, width: 40
+          ),Text("Фреймворк Flutter", textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
+          ], mainAxisAlignment: MainAxisAlignment.start),
+          Row(children: [Image.asset(
+              'assets/dart.png',
+              fit:BoxFit.cover,
+              height: 40, width: 40
+          ),Text("Язык программирования Dart", textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
+          ], mainAxisAlignment: MainAxisAlignment.start),
+          Row(children: [Image.asset(
+              'assets/firebase.png',
+              fit:BoxFit.cover,
+              height: 40, width: 40
+          ),Text("Облачное хранилище FireBase", textAlign: TextAlign.center, style: TextStyle(color: Colors.black),),
+          ], mainAxisAlignment: MainAxisAlignment.start),
+        ], crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,),
+      ),
       SizedBox(
         height: 25,
       ),
