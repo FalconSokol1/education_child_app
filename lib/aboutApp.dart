@@ -18,43 +18,57 @@ class _AboutAppState extends State<AboutApp> {
     child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-    SizedBox(
-    height: 380,
-    width: 400,
-    child: Stack(
-    alignment: Alignment.center,
-    children: [
-    Container(
-    height: 240,
-    width: 390,
-    decoration: BoxDecoration(
-    color: const Color(0xFFC71A4F),
-    borderRadius: BorderRadius.circular(20),
-    boxShadow: [
-    BoxShadow(
-    offset: Offset(0, 1),
-    blurRadius: 5,
-    spreadRadius: 3,
-    color: const Color(0xFFC71A4F).withOpacity(.4),
-    ),
-    ],
-    ),
-    child: Center(
-    child:  Text(
-      'Данное приложение было разработано студенткой группы ИС-42 Чич Зулимой ',
-       textAlign: TextAlign.center,
-    style: TextStyle(
-    fontWeight: FontWeight.bold,
-    color: Colors.white,
-    fontSize: 20,
-    ),
-    ),
-    ),
-    ),]
-    )
-    ,),
+      Row(mainAxisAlignment:MainAxisAlignment.center,
+        children: [
+        SizedBox(
+        height: 160,
+        width: 550,
+        child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                height: 100,
+                width: 390,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFC71A4F),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 1),
+                      blurRadius: 5,
+                      spreadRadius: 3,
+                      color: const Color(0xFFC71A4F).withOpacity(.4),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child:  Text(
+                    'Данное приложение было разработано студенткой группы ИС-42 Чич Зулимой',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(left: 0,
+                child: FloatingActionButton(
+                heroTag: null,
+                foregroundColor:  Colors.white,// <-- Text
+                backgroundColor: const Color(0xFFC71A4F),
+                child:Icon( // <-- Icon
+                  Icons.arrow_back,
+                  size: 24.0,
+                ),
+                onPressed: () {Navigator.pop(context);},),)
+              ]
+        )
+        ,),],),
+
       Text("Используемые средства:", textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20),),
-      SizedBox(height: 20,),
+      SizedBox(height: 10,),
       Container(
         child:
         Column(children: [
@@ -78,28 +92,6 @@ class _AboutAppState extends State<AboutApp> {
           ], mainAxisAlignment: MainAxisAlignment.start),
         ], crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,),
-      ),
-      SizedBox(
-        height: 25,
-      ),
-      Padding(
-          padding: EdgeInsets.all(10),
-          child:
-          Center(
-            child:
-            ElevatedButton(
-              onPressed: () {Navigator.pop(context);},
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(100, 100),
-                shape: const CircleBorder(),
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                size: 50,
-                color: const Color(0xFFC71A4F),
-              ),
-            ),
-          )
       ),
     ])
     ));

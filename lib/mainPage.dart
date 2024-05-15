@@ -51,19 +51,15 @@ class _HomePageState extends State<HomePage> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  FloatingActionButton.extended(
+                  FloatingActionButton(
                     heroTag: null,
-                    label: Text('О приложении'),
                     foregroundColor:  Colors.white,// <-- Text
                     backgroundColor: const Color(0xFFC71A4F),
-                    icon: Icon( // <-- Icon
+                    child:Icon( // <-- Icon
                       Icons.info_outlined,
                       size: 24.0,
-                    ),
-                    onPressed: () {Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AboutApp()),);},
-                  ),
+                      ),
+                    onPressed: ()  {Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutApp()),);},),
                   SizedBox(
                     height: 160,
                     width: 400,
@@ -111,12 +107,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
-                  FloatingActionButton.extended(
+                  FloatingActionButton(
                     heroTag: null,
-                    label: Text('Выйти из аккаунта'),
                     foregroundColor:  Colors.white,// <-- Text
                     backgroundColor: const Color(0xFFC71A4F),
-                    icon: Icon( // <-- Icon
+                    child:Icon(
                       Icons.exit_to_app,
                       size: 24.0,
                     ),
@@ -135,14 +130,14 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   SizedBox(
                     height: 180,
-                    width: 500,
+                    width: 600,
                     child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Material(
-                              color: const Color(0xFFC71A4F),
+                              color: const Color(0xFFF4F4FB),
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
@@ -152,26 +147,15 @@ class _HomePageState extends State<HomePage> {
                                     Ink.image(
                                       image: AssetImage('assets/gameWord.jpeg'),
                                       fit: BoxFit.fill,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Буквы',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
+                                      width: 135,
+                                      height: 160,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             Material(
-                              color: const Color(0xFFC71A4F),
+                              color: const Color(0xFFF4F4FB),
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
@@ -181,26 +165,15 @@ class _HomePageState extends State<HomePage> {
                                     Ink.image(
                                       image: AssetImage('assets/gameNumber.jpeg'),
                                       fit: BoxFit.fill,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Цифры',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
+                                      width: 135,
+                                      height: 160,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             Material(
-                              color: const Color(0xFFC71A4F),
+                              color: const Color(0xFFF4F4FB),
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
@@ -210,26 +183,15 @@ class _HomePageState extends State<HomePage> {
                                     Ink.image(
                                       image: AssetImage('assets/gamePaint.jpeg'),
                                       fit: BoxFit.fill,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Цвета',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
+                                      width: 135,
+                                      height: 160,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             Material(
-                              color: const Color(0xFFC71A4F),
+                              color: const Color(0xFFF4F4FB),
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
@@ -239,19 +201,8 @@ class _HomePageState extends State<HomePage> {
                                     Ink.image(
                                       image: AssetImage('assets/gameFigures.jpeg'),
                                       fit: BoxFit.fill,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Фигуры',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
+                                      width: 135,
+                                      height: 160,
                                     ),
                                   ],
                                 ),
