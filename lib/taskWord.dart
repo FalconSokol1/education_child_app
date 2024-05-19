@@ -18,7 +18,7 @@ class TaskList {
   static List<TaskWord> getTasks() {
     return [
       TaskWord(
-        word1: 'assets/image1.jpg',
+        word1: 'assets/Alphtablet/А.png',
         word2: 'assets/image1.jpg',
         word3: 'assets/image1.jpg',
         word4: 'assets/image1.jpg',

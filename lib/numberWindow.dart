@@ -140,13 +140,13 @@ class _NumberWindowtState extends State<NumberWindow> {
                 ),
             ],),
             SizedBox(
-              height: 140,
+              height: 120,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Container(
-                      height: 125,
-                      width: 390,
+                      height: 110,
+                      width: 320,
                       decoration: BoxDecoration(
                         color: Colors.blueGrey.withOpacity(.1),
                         borderRadius: BorderRadius.circular(20),
@@ -166,12 +166,12 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   },
                                   child: Column(
                                     children: [
-                                      Image.asset(
-                                        tasks[currentTaskIndex].image_correct,
-                                        width: 100,
-                                        height: 125,
+                                      Ink.image(
+                                        image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                        width: 90,
+                                        height: 100,
                                         fit: BoxFit.fill,
-                                      ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -184,17 +184,15 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   onTap: () {
                                     String btn = "btn2";
                                     checkAnswer(btn);
-
                                   },
                                   child: Column(
                                     children: [
-                                      Image.asset(
-                                        tasks[currentTaskIndex].image_correct,
-                                        width: 100,
-                                        height: 125,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ],
+                                  Ink.image(
+                                  image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                  width: 90,
+                                  height: 100,
+                                  fit: BoxFit.fill,
+                                  )],
                                   ),
                                 ),
                               ),
@@ -209,12 +207,12 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   },
                                   child: Column(
                                     children: [
-                                      Image.asset(
-                                          tasks[currentTaskIndex].image_correct,
-                                          width: 100,
-                                          height: 125,
-                                          fit: BoxFit.fill
-                                      ),
+                                      Ink.image(
+                                        image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                        width: 90,
+                                        height: 100,
+                                        fit: BoxFit.fill,
+                                      )
                                     ],
                                   ),
                                 ),

@@ -41,6 +41,7 @@ dependencies:
   firebase_auth: ^4.19.5
   firebase_core: ^2.31.0
   firebase_database: ^10.5.5
+  audioplayers: ^6.0.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,10 @@ flutter:
   assets:
     - assets/
     - assets/gameNumber/
+    - assets/Alphtablet/
+    - assets/imageWord/
+    - assets/Sound/lernnumberSound/
+    - assets/Sound/lernwordSound/
 
 
   # To add assets to your application, add an assets section, like this:

@@ -6,10 +6,10 @@ class WordWindow extends StatefulWidget {
   const WordWindow({Key? key});
 
   @override
-  State<WordWindow> createState() => _HomePageState();
+  State<WordWindow> createState() => _WordWindowState();
 }
 
-class _HomePageState extends State<WordWindow> {
+class _WordWindowState extends State<WordWindow> {
   late bool _isVisible = false;
   final List<TaskWord> tasks = TaskList.getTasks();
 
@@ -90,7 +90,7 @@ class _HomePageState extends State<WordWindow> {
                                   opacity: _isVisible ? 1.0 : 0.0,
                                   duration: Duration(seconds: 1),
                                   child: Text(
-                                    tasks[currentTaskIndex].text, textAlign: TextAlign.center,
+                                    "Собери слово", textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -99,7 +99,7 @@ class _HomePageState extends State<WordWindow> {
                                   ),
                                 ),
                                 Text(
-                                  'Баллы: $score',
+                                  'Слово: $score',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -118,8 +118,8 @@ class _HomePageState extends State<WordWindow> {
                   alignment: Alignment.center,
                   children: [
                     Container(
-                        height: 125,
-                        width: 390,
+                        height: 110,
+                        width: 800,
                         decoration: BoxDecoration(
                           color: Colors.blueGrey.withOpacity(.1),
                           borderRadius: BorderRadius.circular(20),
@@ -140,10 +140,10 @@ class _HomePageState extends State<WordWindow> {
                                     },
                                     child: Column(
                                       children: [
-                                        Image.asset(
-                                          tasks[currentTaskIndex].image_correct,
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
                                           width: 100,
-                                          height: 125,
+                                          height: 110,
                                           fit: BoxFit.fill,
                                         ),
                                       ],
@@ -156,15 +156,16 @@ class _HomePageState extends State<WordWindow> {
                                   child: InkWell(
                                     splashColor: Colors.grey,
                                     onTap: () {
-
-
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
-                                        Image.asset(
-                                          tasks[currentTaskIndex].image_correct,
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
                                           width: 100,
-                                          height: 125,
+                                          height: 110,
                                           fit: BoxFit.fill,
                                         ),
                                       ],
@@ -177,22 +178,132 @@ class _HomePageState extends State<WordWindow> {
                                   child: InkWell(
                                     splashColor: Colors.grey,
                                     onTap: () {
-
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
-                                        Image.asset(
-                                            tasks[currentTaskIndex].image_correct,
-                                            width: 100,
-                                            height: 125,
-                                            fit: BoxFit.fill
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Material(),
-                                Material()
+                                Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.grey,
+                                    onTap: () {
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.grey,
+                                    onTap: () {
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.grey,
+                                    onTap: () {
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.grey,
+                                    onTap: () {
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.grey,
+                                    onTap: () {
+                                      numberWord++;
+                                      String button = tasks[currentTaskIndex].word1;
+                                      checkAnswer(button);
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Ink.image(
+                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          width: 100,
+                                          height: 110,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],

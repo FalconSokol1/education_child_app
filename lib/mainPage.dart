@@ -1,5 +1,6 @@
 import 'package:education_child_app/authService.dart';
 import 'package:education_child_app/authWindow.dart';
+import 'package:education_child_app/modalWindowNumber.dart';
 import 'package:education_child_app/numberWindow.dart';
 import 'package:education_child_app/wordWindow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'aboutApp.dart';
+import 'modalWindowWord.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -141,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
-                                onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>WordWindow()));},
+                                onTap: () {createCenterWordSheet(context);},
                                 child: Column(
                                   children: [
                                     Ink.image(
@@ -159,47 +161,11 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
-                                onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>NumberWindow()));},
+                                onTap: () {createCenterNumberSheet(context);},
                                 child: Column(
                                   children: [
                                     Ink.image(
                                       image: AssetImage('assets/gameNumber.jpeg'),
-                                      fit: BoxFit.fill,
-                                      width: 135,
-                                      height: 160,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Material(
-                              color: const Color(0xFFF4F4FB),
-                              borderRadius: BorderRadius.circular(20),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Column(
-                                  children: [
-                                    Ink.image(
-                                      image: AssetImage('assets/gamePaint.jpeg'),
-                                      fit: BoxFit.fill,
-                                      width: 135,
-                                      height: 160,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Material(
-                              color: const Color(0xFFF4F4FB),
-                              borderRadius: BorderRadius.circular(20),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Column(
-                                  children: [
-                                    Ink.image(
-                                      image: AssetImage('assets/gameFigures.jpeg'),
                                       fit: BoxFit.fill,
                                       width: 135,
                                       height: 160,
