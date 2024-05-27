@@ -72,6 +72,8 @@ flutter:
     - assets/imageWord/
     - assets/Sound/lernnumberSound/
     - assets/Sound/lernwordSound/
+    - assets/Sound/tasknumberSound/
+    - assets/Sound/taskwordSound/
 
 
   # To add assets to your application, add an assets section, like this:

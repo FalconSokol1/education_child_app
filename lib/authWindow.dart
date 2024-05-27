@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:education_child_app/mainPage.dart';
 import 'package:education_child_app/numberWindow.dart';
 import 'package:education_child_app/wordWindow.dart';
@@ -26,10 +27,8 @@ class _AuthWindowState extends State<AuthWindow> {
   @override
   void initState() {
     super.initState();
-    // Установим начальное значение видимости текста как false
     _isVisible = false;
 
-    // Установим задержку перед началом анимации
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _isVisible = true;
@@ -107,6 +106,7 @@ class _AuthWindowState extends State<AuthWindow> {
               ),
                 onPressed: () {
                 _signInWithGoogle();
+                _createUser();
               },
             ),
           ],
@@ -144,6 +144,26 @@ class _AuthWindowState extends State<AuthWindow> {
       print(e);
     }
 
+
+  }
+  Future _createUser()async{
+    bool newPlayer = false;
+
+    var isUserReal = await FirebaseFirestore.instance.collection('Users').doc(_firebaseAuth.currentUser!.email).get();
+    if(!isUserReal.exists){
+      final docUser = FirebaseFirestore.instance.collection('Users').doc('${_firebaseAuth.currentUser!.email}');
+      final user = {
+        'Id':_firebaseAuth.currentUser!.email,
+        'Name': _firebaseAuth.currentUser!.displayName,
+        'NewPlayer': newPlayer=true,
+        'NewPlayerNumber': newPlayer,
+        'NewPlayerWord': newPlayer,
+      };
+      await docUser.set(user);
+    }
+    if(isUserReal.exists){
+
+    }
 
   }
 }

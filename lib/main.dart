@@ -13,10 +13,8 @@ void main()async{
   User? currentUser = FirebaseAuth.instance.currentUser;
   Widget initialWidget;
   if (currentUser != null) {
-    // Пользователь авторизован, используем главный экран
     initialWidget = HomePage();
   } else {
-    // Пользователь не авторизован, используем окно авторизации
     initialWidget = AuthWindow();
   }
 

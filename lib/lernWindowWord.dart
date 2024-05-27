@@ -130,8 +130,11 @@ class _LearnWordWindowState extends State<LearnWordWindow> {
                           size: 24.0,
                         ),
                         onPressed: () {
-                          currentTaskIndex--;
                           setState(() {
+                            currentTaskIndex--;
+                            if (currentTaskIndex < 0) {
+                              currentTaskIndex = word.length - 1;
+                            }
                           });
                         },
                       ),
@@ -158,8 +161,11 @@ class _LearnWordWindowState extends State<LearnWordWindow> {
                           size: 24.0,
                         ),
                         onPressed: () {
-                          currentTaskIndex++;
                           setState(() {
+                            currentTaskIndex++;
+                            if (currentTaskIndex >= word.length) {
+                              currentTaskIndex = 0;
+                            }
                           });
                         },
                       ),

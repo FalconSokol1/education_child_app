@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:education_child_app/taskNumber.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -15,6 +17,8 @@ class NumberWindow extends StatefulWidget {
 class _NumberWindowtState extends State<NumberWindow> {
   late bool _isVisible = false;
   final List<Task> tasks = TaskList.getTasks();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late bool newPlayer = true;
 
   int score = 0;
   int currentTaskIndex = 0;
@@ -74,6 +78,7 @@ class _NumberWindowtState extends State<NumberWindow> {
           ],
         ),
       );
+      addScores(score);
     }
   }
 
@@ -167,7 +172,7 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   child: Column(
                                     children: [
                                       Ink.image(
-                                        image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                        image: AssetImage(tasks[currentTaskIndex].image_1),
                                         width: 90,
                                         height: 100,
                                         fit: BoxFit.fill,
@@ -188,7 +193,7 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   child: Column(
                                     children: [
                                   Ink.image(
-                                  image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                  image: AssetImage(tasks[currentTaskIndex].image_2),
                                   width: 90,
                                   height: 100,
                                   fit: BoxFit.fill,
@@ -208,7 +213,7 @@ class _NumberWindowtState extends State<NumberWindow> {
                                   child: Column(
                                     children: [
                                       Ink.image(
-                                        image: AssetImage(tasks[currentTaskIndex].image_correct),
+                                        image: AssetImage(tasks[currentTaskIndex].image_3),
                                         width: 90,
                                         height: 100,
                                         fit: BoxFit.fill,
@@ -242,5 +247,37 @@ class _NumberWindowtState extends State<NumberWindow> {
       )
 
     );
+  }
+
+  Future<void> addScores(int score) async {
+    int resultGame = score;
+    var userEmail = _firebaseAuth.currentUser!.email;
+
+    var userDoc = FirebaseFirestore.instance.collection('Users').doc(userEmail);
+    var userSnapshot = await userDoc.get();
+    var scoresWord = userSnapshot.data()!['ScoresWord'] as int;
+    var scoresNumber = userSnapshot.data()!['ScoresNumber'] as int;
+
+    // Обновляем resultGame, добавляя текущие баллы пользователя
+    resultGame += scoresNumber;
+    print(resultGame);
+    print(scoresNumber);
+
+    var resultGameDoc = FirebaseFirestore.instance.collection('ResultGames').doc(userEmail);
+    var isUserReal = await resultGameDoc.get();
+    if (!isUserReal.exists) {
+      final user = {
+        'Id': userEmail,
+        'Name': _firebaseAuth.currentUser!.displayName,
+        'NewPlayer': false,
+        'NewPlayerNumber': false,
+        'NewPlayerWord': false,
+        'ScoresNumber': resultGame, // Сохраняем обновленный resultGame
+        'ScoresWord': scoresWord,
+      };
+      await userDoc.set(user);
+    } else {
+      await userDoc.update({'ScoresNumber': resultGame}); // Обновляем resultGame в существующем документе
+    }
   }
 }

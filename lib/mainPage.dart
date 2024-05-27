@@ -26,12 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-
-    // Установим начальное значение видимости текста как false
     _isVisible = false;
-
-    // Установим задержку перед началом анимации
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _isVisible = true;
@@ -187,5 +182,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }

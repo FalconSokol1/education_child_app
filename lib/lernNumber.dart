@@ -29,7 +29,7 @@ class WordList {
     ),
       NumberCard(
         number: 'assets/gameNumber/4.jpg',
-    text: 'Гном',
+    text: 'Четыре',
     sound: 'Sound/lernnumberSound/numberFour.mp3',
     correct_number: 4,
     ),

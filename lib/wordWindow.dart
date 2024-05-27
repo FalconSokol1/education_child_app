@@ -1,4 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:education_child_app/taskWord.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +14,23 @@ class WordWindow extends StatefulWidget {
 
 class _WordWindowState extends State<WordWindow> {
   late bool _isVisible = false;
+  late String soundWord;
+  static AudioPlayer player = new AudioPlayer();
   final List<TaskWord> tasks = TaskList.getTasks();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  late bool newPlayer = true;
 
   int score = 0;
   int currentTaskIndex = 0;
   int numberWord = 0;
   String collectedWord = "";
+
+  void playSoundNumber() {
+    setState(() {
+      soundWord = tasks[currentTaskIndex].audioWord;
+      player.play(AssetSource(soundWord));
+    });
+  }
 
   @override
   void initState() {
@@ -24,6 +38,7 @@ class _WordWindowState extends State<WordWindow> {
 
     // Установим начальное значение видимости текста как false
     _isVisible = false;
+    playSoundNumber();
 
     // Установим задержку перед началом анимации
     Future.delayed(Duration(milliseconds: 500), () {
@@ -33,22 +48,65 @@ class _WordWindowState extends State<WordWindow> {
     });
   }
 
-  void checkAnswer(button) {
+  void checkAnswer(String button) {
     setState(() {
       collectedWord += button; // Добавляем букву к собранному слову
+      print("Собранное слово: $collectedWord");
+      print("Правильное слово: ${tasks[currentTaskIndex].word}");
+
       if (collectedWord.length == tasks[currentTaskIndex].correct_number) {
         // Проверяем правильность собранного слова
         if (collectedWord == tasks[currentTaskIndex].word) {
           score++;
+          print("Ответ правильный");
+        } else {
+          print("Ответ неправильный");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Ответ неправильный'),
+          ));
         }
-        // Сбрасываем состояние для следующего задания
-        collectedWord = '';
-        currentTaskIndex = (currentTaskIndex + 1) % tasks.length;
+
+        collectedWord = ''; // Сбрасываем собранное слово
+
+        // Проверяем, находится ли currentTaskIndex в диапазоне допустимых индексов
+        if (currentTaskIndex < tasks.length - 1) {
+          currentTaskIndex++; // Переходим к следующему заданию
+          playSoundNumber(); // Проигрываем звук следующего слова
+
+          // Плавная анимация для видимости элементов
+          Future.delayed(Duration(milliseconds: 500), () {
+            setState(() {
+              _isVisible = true;
+            });
+          });
+        } else {
+          // Игра окончена
+          addScores(score).then((_) {
+            showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: Text('Игра окончена'),
+                content: Text('Ваши баллы: $score'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      score = 0;
+                      currentTaskIndex = 0;
+                      collectedWord = '';
+                      playSoundNumber();
+                    },
+                    child: Text('Начать заново'),
+                  ),
+                ],
+              ),
+            );
+          });
+        }
       }
-
-
     });
   }
+
 
 
   @override
@@ -99,7 +157,7 @@ class _WordWindowState extends State<WordWindow> {
                                   ),
                                 ),
                                 Text(
-                                  'Слово: $score',
+                                  'Слово: $collectedWord',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -135,8 +193,8 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                     String button = tasks[currentTaskIndex].word1;
-                                     checkAnswer(button);
+                                        String button = tasks[currentTaskIndex].correct_word1;
+                                        checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
@@ -157,13 +215,13 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+                                        String button = tasks[currentTaskIndex].correct_word2;
+                                        checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word2),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -179,13 +237,13 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+                                        String button = tasks[currentTaskIndex].correct_word3;
+                                        checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word3),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -201,13 +259,15 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+                                      if (currentTaskIndex < tasks.length) {
+                                        String button = tasks[currentTaskIndex].correct_word4;
+                                        checkAnswer(button);
+                                      }
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word4),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -223,13 +283,15 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+
+                                        String button = tasks[currentTaskIndex].correct_word5;
+                                        checkAnswer(button);
+
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word5),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -245,13 +307,15 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+
+                                        String button = tasks[currentTaskIndex].correct_word6;
+                                        checkAnswer(button);
+
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word6),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -267,13 +331,13 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+                                        String button = tasks[currentTaskIndex].correct_word7;
+                                        checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word7),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -289,13 +353,14 @@ class _WordWindowState extends State<WordWindow> {
                                     splashColor: Colors.grey,
                                     onTap: () {
                                       numberWord++;
-                                      String button = tasks[currentTaskIndex].word1;
-                                      checkAnswer(button);
+
+                                        String button = tasks[currentTaskIndex].correct_word8;
+                                        checkAnswer(button);
                                     },
                                     child: Column(
                                       children: [
                                         Ink.image(
-                                          image: AssetImage(tasks[currentTaskIndex].word1),
+                                          image: AssetImage(tasks[currentTaskIndex].word8),
                                           width: 100,
                                           height: 110,
                                           fit: BoxFit.fill,
@@ -330,4 +395,35 @@ class _WordWindowState extends State<WordWindow> {
 
     );
   }
+  Future<void> addScores(int score) async {
+    int resultGame = score;
+    var userEmail = _firebaseAuth.currentUser!.email;
+    var userDoc = FirebaseFirestore.instance.collection('Users').doc(userEmail);
+    var numberSnapshot = await userDoc.get();
+    var scoresNumber= numberSnapshot.data()!['ScoresNumber'] as int;
+
+    var wordSnapshot = await userDoc.get();
+    var scoresWord = wordSnapshot.data()!['ScoresWord'] as int;
+    resultGame += scoresWord;
+    print(resultGame);
+
+    var resultGameDoc = FirebaseFirestore.instance.collection('ResultGames').doc(userEmail);
+    var isUserReal = await resultGameDoc.get();
+    if (!isUserReal.exists) {
+      final user = {
+        'Id': userEmail,
+        'Name': _firebaseAuth.currentUser!.displayName,
+        'NewPlayer': false,
+        'NewPlayerNumber': false,
+        'NewPlayerWord': false,
+        'ScoresNumber': scoresNumber,
+        'ScoresWord': resultGame,
+      };
+      await userDoc.set(user);
+    } else {
+      await userDoc.update({'ScoresWord': resultGame});
+    }
+  }
+
+
 }
